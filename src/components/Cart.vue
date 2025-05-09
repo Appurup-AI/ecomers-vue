@@ -32,13 +32,19 @@ onMounted(() => {
     <div class="sneaker-image-container">
       <img :src="item.imageUrl" :alt="item.title" class="sneaker-image" />
     </div>
+    <div class="sneaker-title">
+      <p class="sneaker-title__heading">{{ item.type }} {{ item.control }} горелка</p>
+      <p class="sneaker-title__name">{{ item.title }}</p>
+    </div>
 
-    <p class="sneaker-title">{{ item.title }}</p>
+    <div class="power">
+      <span>{{ item.minPower.toLocaleString('ru-RU') }} кВт - {{ item.maxPower.toLocaleString('ru-RU') }} кВт </span>
+    </div>
 
     <div class="sneaker-footer">
       <div class="price-container">
         <span class="price-label">Цена:</span>
-        <b class="price">{{ item.price }} руб.</b>
+        <b class="price">{{ item.price.toLocaleString('ru-RU') }} руб.</b>
       </div>
 
       <div v-if="item.isAdded" class="quantity-control">
@@ -89,9 +95,8 @@ onMounted(() => {
     0 20px 25px -5px rgba(0, 0, 0, 0.1),
     0 10px 10px -5px rgba(0, 0, 0, 0.04);
   @media screen and (max-width: $screen-md) {
-     transform: none;
-  box-shadow:
-    none
+    transform: none;
+    box-shadow: none;
   }
 }
 
@@ -115,6 +120,7 @@ onMounted(() => {
   width: auto;
   display: flex;
   justify-content: center;
+  max-height: 22rem;
   align-items: center;
   @media screen and (max-width: $screen-md) {
     height: 20rem;
@@ -127,15 +133,26 @@ onMounted(() => {
 .sneaker-image {
   // align-self: center;
   // justify-self: center;
+  max-height: 15rem;
+    @media screen and (max-width: $screen-sm) {
+      max-height: 12rem;
+  }
 }
 
 /* Название товара */
 .sneaker-title {
   margin-top: 0.5rem;
-  height: 3rem;
+  // height: 3rem;
   @media screen and (max-width: $screen-sm) {
     height: auto;
     min-height: 3rem;
+  }
+  &__name {
+    font-weight: 700;
+  }
+
+  &__heading {
+    text-transform: capitalize;
   }
 }
 
@@ -143,7 +160,7 @@ onMounted(() => {
 .sneaker-footer {
   display: flex;
   justify-content: space-between;
-  margin-top: 1.25rem;
+  margin-top: 0.5rem;
   align-items: center;
 }
 
@@ -182,6 +199,10 @@ onMounted(() => {
 
 .quantity-value {
   width: 2.5rem;
+}
+
+.power {
+  margin-top: 0.5rem;
 }
 
 /* Иконка добавления в корзину */

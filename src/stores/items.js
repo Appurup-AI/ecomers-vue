@@ -7,36 +7,57 @@ export const useItemsStore = defineStore('items', () => {
   const accountStore = useAccountStore()
   const items = ref([])
   const filteredItems = computed(() => {
-    const searchQuery = filters.value.search.toLowerCase()
+    const { search, type, control, minPower, maxPower, sortBy } = filters.value
 
-    let result = items.value.filter((item) => item.title.toLowerCase().includes(searchQuery))
+    const searchQuery = search.toLowerCase()
 
-    // Сортировка в зависимости от выбранного варианта
-    switch (filters.value.sortBy) {
-      case 'name':
-        result.sort((a, b) => a.title.localeCompare(b.title))
-        break
-      case 'price':
-        result.sort((a, b) => a.price - b.price)
-        break
-      case '-price':
-        result.sort((a, b) => b.price - a.price)
-        break
-    }
+    return items.value
+      .filter((item) => {
+        // Объединяем все условия фильтрации в один вызов
+        let match = item.title.toLowerCase().includes(searchQuery)
 
-    return result
+        if (type === 'gaz') match &&= item.type === 'газовая'
+        else if (type === 'diesel') match &&= item.type === 'дизельная'
+
+        if (control === 'one') match &&= item.control === 'одноступенчатая'
+        else if (control === 'two') match &&= item.control === 'двухступенчатая'
+        else if (control === 'module') match &&= item.control === 'модуляционная'
+
+        if (minPower != null) match &&= item.minPower >= minPower
+        if (maxPower != null) match &&= item.maxPower <= maxPower // Исправлено < на <=
+
+        return match
+      })
+      .sort((a, b) => {
+        // Выносим сортировку в отдельный механизм
+        switch (sortBy) {
+          case 'name':
+            return a.title.localeCompare(b.title)
+          case 'price':
+            return a.price - b.price
+          case '-price':
+            return b.price - a.price
+          default:
+            return 0
+        }
+      })
   })
   const filters = ref({
     sortBy: '',
+    type: '',
+    control: '',
     search: '',
+    minPower: null,
+    maxPower: null,
   })
   const isFiltered = computed(() => {
-    return filters.value.sortBy !== '' || filters.value.search !== ''
+    const { sortBy, search, control, type, minPower, maxPower } = filters.value
+    return !!(sortBy || search || control || type || minPower !== null || maxPower !== null)
   })
 
   const fetchData = async () => {
     try {
-      const res = await fetch('https://c4ed8f614b796983.mokky.dev/items')
+      const res = await fetch(`${import.meta.env.VITE_API}/api/items`)
       const data = await res.json()
       if (accountStore.user !== null) {
         try {

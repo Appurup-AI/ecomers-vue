@@ -22,9 +22,13 @@ onMounted(() => {
     <div class="cart__img">
       <img :src="item.imageUrl" :alt="item.title" />
     </div>
-    <div class="cart__description">{{ item.title }}</div>
+    <div class="cart__description">
+      <div class="cart__description--heading">{{ item.type }} {{ item.control }}</div>
+      <div class="cart__description--title">{{ item.title }}</div>
+      <div class="cart__description--power">{{ item.minPower.toLocaleString('ru-RU') }} кВт - {{ item.maxPower.toLocaleString('ru-RU') }} кВт</div>
+    </div>
     <div class="cart__price">
-      <span>{{ item.price }}</span> ₽
+      <span>{{ item.price.toLocaleString('ru-RU') }}</span> ₽
     </div>
     <div class="cart__amount">
       <div class="quantity-control">
@@ -82,7 +86,7 @@ onMounted(() => {
 .cart {
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 1rem;
-  padding: 1rem 1rem .5rem 1rem;
+  padding: 1rem 1rem 0.5rem 1rem;
   // height: 12rem;
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -107,8 +111,14 @@ onMounted(() => {
   }
   &__description {
     font-size: 1.4rem;
-    font-weight: 200;
+    font-weight: 500;
     margin-right: 1rem;
+    &--heading {
+      text-transform: capitalize;
+    }
+
+    &--title {
+    }
   }
   &__price {
     display: flex;

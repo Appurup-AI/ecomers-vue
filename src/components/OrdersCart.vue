@@ -47,10 +47,15 @@ const statusFormat = (status) => {
       >
         <img :src="`${item.imageUrl}`" alt="" class="order__body-container__img" />
         <div class="order__body-container__description">
-          {{ item.title }}
+          <p class="order__body-container__description--heading">
+            {{ item.type }} {{ item.control }} горелка
+          </p>
+          <p>{{ item.title }}</p>
+          <p>{{ item.minPower }} кВт - {{ item.maxPower }} кВт</p>
         </div>
         <div class="order__body-container__price">
-          <span>Цена: {{ item.price }} ₽</span>
+          <span>Цена:</span>
+          <span>{{ item.price.toLocaleString('ru-RU') }} ₽</span>
           <span>{{ item.amount }} шт.</span>
         </div>
       </div>
@@ -58,7 +63,7 @@ const statusFormat = (status) => {
       <div class="order__body-total">
         <div class="order__body-total__price">
           <span>Итого: </span>
-          <span>{{ order.price }} ₽</span>
+          <span>{{ order.price.toLocaleString('ru-RU') }} ₽</span>
         </div>
       </div>
     </div>
@@ -144,7 +149,7 @@ const statusFormat = (status) => {
       display: flex;
       font-size: 1.6rem;
       @media screen and (max-width: $screen-sm) {
-        padding: 1rem;
+        padding: .7rem;
         font-size: 1.5rem;
       }
       &__img {
@@ -152,6 +157,8 @@ const statusFormat = (status) => {
         width: auto;
         margin-right: 1.5rem;
         @media screen and (max-width: $screen-sm) {
+          width: 9rem;
+          height: auto;
           margin-right: 1rem;
         }
       }
@@ -159,6 +166,12 @@ const statusFormat = (status) => {
       &__description {
         font-size: 1.6rem;
         flex: 1;
+        @media screen and (max-width: $screen-sm) {
+          font-size: 1.4rem;
+        }
+        &--heading {
+          text-transform: capitalize;
+        }
       }
 
       &__price {

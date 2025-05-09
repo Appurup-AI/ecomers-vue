@@ -8,8 +8,8 @@ import Cart from '@/components/Cart.vue'
 const itemsStore = useItemsStore()
 
 const handleChange = () => {
-  console.log(itemsStore.filters.sortBy)
-  console.log(itemsStore.filters.search)
+  console.log(itemsStore.filters)
+  console.log(itemsStore.filteredItems)
   console.log(itemsStore.isFiltered)
 }
 </script>
@@ -31,6 +31,47 @@ const handleChange = () => {
         <option value="-price">Сначала дорогие</option>
       </select>
 
+      <select
+        id="sort-type"
+        class="sort-select"
+        v-model="itemsStore.filters.type"
+        @change="handleChange"
+      >
+        <option value="">Все</option>
+        <option value="gaz">Газовые</option>
+        <option value="diesel">Дизельные</option>
+      </select>
+
+      <select
+        id="sort-control"
+        class="sort-select"
+        v-model="itemsStore.filters.control"
+        @change="handleChange"
+      >
+        <option value="">Все</option>
+        <option value="one">Одноступенчатые</option>
+        <option value="two">Двухступенчатые</option>
+        <option value="module">Модуляционные</option>
+      </select>
+
+      <div class="search-power">
+        <input
+          class="search-power__value"
+          type="text"
+          placeholder="От"
+          v-model.number="itemsStore.filters.minPower"
+          v-debounce:500ms="handleChange"
+          debounce-events="keydown"
+        />
+        <input
+          class="search-power__value"
+          type="text"
+          placeholder="До"
+          v-model.number="itemsStore.filters.maxPower"
+          debounce-events="keydown"
+        />
+      </div>
+
       <div class="search-container">
         <img class="search-icon" src="/search-outline.svg" alt="Search" />
         <input
@@ -39,7 +80,6 @@ const handleChange = () => {
           type="text"
           placeholder="Поиск..."
           v-model="itemsStore.filters.search"
-          v-debounce:500ms="handleChange"
           debounce-events="keydown"
         />
       </div>
@@ -61,6 +101,7 @@ const handleChange = () => {
   gap: 2rem;
   margin-top: 4rem;
   padding: 4rem;
+
   @media screen and (max-width: $screen-xl) {
     grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
     gap: 1rem;
@@ -94,59 +135,74 @@ const handleChange = () => {
       text-align: center;
     }
   }
+}
 
-  .header-controls {
-    display: flex;
-    gap: 1.6rem;
+.header-controls {
+  display: flex;
+  gap: 1rem;
+  @media screen and (max-width: $screen-sm) {
+    gap: 0;
+    flex-wrap: wrap;
+    padding: 0 1rem;
+  }
+
+  .sort-select {
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 1rem;
+    outline: none;
+    min-height: 4.4rem;
+    background-color: #fff;
+    font-size: 1.3rem;
     @media screen and (max-width: $screen-sm) {
-      gap: 0;
-      justify-content: space-between;
-      padding: 0 2rem;
+    }
+    &:focus {
+      border-color: #9ca3af;
+    }
+  }
+
+  .search-container {
+    position: relative;
+    @media screen and (max-width: $screen-sm) {
+      // max-width: 20rem;
+      width: 100%;
+      flex: 1;
     }
 
-    .sort-select {
-      padding: 0.6rem 0.8rem;
+    .search-icon {
+      position: absolute;
+      left: 0.4rem;
+      top: 1.2rem;
+      width: 2rem;
+    }
+
+    .search-input {
       border: 1px solid #e5e7eb;
-      border-radius: 1rem;
+      border-radius: 0.4rem;
+      padding: 0.6rem 1rem 0.6rem 2.6rem;
       outline: none;
       min-height: 4.4rem;
-      background-color: #fff;
-      font-size: 1.3rem;
+      border-radius: 1rem;
       @media screen and (max-width: $screen-sm) {
+        width: 100%;
       }
       &:focus {
         border-color: #9ca3af;
       }
     }
+  }
+}
 
-    .search-container {
-      position: relative;
-      max-width: 20rem;
-
-      @media screen and (max-width: $screen-sm) {
-      }
-      .search-icon {
-        position: absolute;
-        left: 0.4rem;
-        top: 1.2rem;
-        width: 2rem;
-      }
-
-      .search-input {
-        border: 1px solid #e5e7eb;
-        border-radius: 0.4rem;
-        padding: 0.6rem 1rem 0.6rem 2.6rem;
-        outline: none;
-        min-height: 4.4rem;
-        border-radius: 1rem;
-        @media screen and (max-width: $screen-sm) {
-          max-width: 20rem;
-        }
-        &:focus {
-          border-color: #9ca3af;
-        }
-      }
-    }
+.search-power {
+  display: flex;
+  gap: 1rem;
+  &__value {
+    border: 1px solid #e5e7eb;
+    max-width: 10rem;
+    padding: 1rem;
+    outline: none;
+    min-height: 4.4rem;
+    border-radius: 1rem;
   }
 }
 </style>
