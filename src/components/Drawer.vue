@@ -134,7 +134,7 @@ const handleCreateOrder = async () => {
   flex-direction: column;
   margin-top: 1.7rem;
   @media screen and (max-width: $screen-sm) {
-    margin-bottom: 2rem;
+    margin-bottom: 10rem;
   }
   &__price {
     display: flex;
