@@ -34,7 +34,7 @@ const statusFormat = (status) => {
           <span>{{ order.email }}</span>
         </div>
         <div class="order__body-info__text">
-          <img src="/public/location-outline.svg" alt="" class="icon" />
+          <img src="/location-outline.svg" alt="" class="icon" />
           <span class="grey">Адрес: </span>
           <span>{{ order.address }}</span>
         </div>
@@ -45,7 +45,7 @@ const statusFormat = (status) => {
         :key="item.id"
         :data-id="item.id"
       >
-        <img :src="`/public${item.imageUrl}`" alt="" class="order__body-container__img" />
+        <img :src="`${item.imageUrl}`" alt="" class="order__body-container__img" />
         <div class="order__body-container__description">
           {{ item.title }}
         </div>
