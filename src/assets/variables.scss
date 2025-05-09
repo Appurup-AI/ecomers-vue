@@ -1,0 +1,17 @@
+$screen-xs: 320px;
+$screen-sm: 576px;
+$screen-md: 768px;
+$screen-lg: 992px;
+$screen-xl: 1200px;
+$screen-xxl: 1440px;
+
+@media only screen and (max-width: $screen-xl) {
+  html {
+    font-size: 56.25%;
+  }
+}
+@media only screen and (max-width: $screen-lg) {
+  html {
+    font-size: 50%;
+  }
+}
