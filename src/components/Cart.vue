@@ -77,7 +77,7 @@ onMounted(() => {
   border: 1px solid #f1f5f9;
   border-radius: 1.5rem;
   padding: 2rem;
-  cursor: pointer;
+  // cursor: pointer;
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
