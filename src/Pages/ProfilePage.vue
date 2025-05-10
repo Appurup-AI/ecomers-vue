@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted } from 'vue'
 import { useAccountStore } from '@/stores/account'
 import { useRouter } from 'vue-router'
 import OrdersCart from '@/components/OrdersCart.vue'

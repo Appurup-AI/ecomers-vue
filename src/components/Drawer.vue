@@ -55,7 +55,7 @@ const handleCreateOrder = async () => {
         </div>
         <button
           class="order__btn order__btn__accept"
-          :disabled="!itemsStore.cart.length"
+          :disabled="!itemsStore.cart.length || !accountStore.form.address"
           @click="handleCreateOrder"
         >
           Заказть

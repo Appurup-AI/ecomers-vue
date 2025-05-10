@@ -1,22 +1,19 @@
 <script setup>
-import { onMounted, watch } from 'vue'
-import vueDebounce from 'vue-debounce'
-const vDebounce = vueDebounce({ lock: true })
 import { useItemsStore } from '@/stores/items'
 import Cart from '@/components/Cart.vue'
 // const emit = defineEmits(['toggledFavorite', 'toggledAdded'])
 const itemsStore = useItemsStore()
 
-const handleChange = () => {
-  console.log(itemsStore.filters)
-  console.log(itemsStore.filteredItems)
-  console.log(itemsStore.isFiltered)
-}
+// const handleChange = () => {
+//   console.log(itemsStore.filters)
+//   console.log(itemsStore.filteredItems)
+//   console.log(itemsStore.isFiltered)
+// }
 </script>
 
 <template>
   <div class="header-container">
-    <h2 class="header-title">Все кроссовки</h2>
+    <h2 class="header-title">Все горелки</h2>
 
     <div class="header-controls">
       <select
@@ -58,17 +55,14 @@ const handleChange = () => {
         <input
           class="search-power__value"
           type="text"
-          placeholder="От"
+          placeholder="От ... кВт"
           v-model.number="itemsStore.filters.minPower"
-          v-debounce:500ms="handleChange"
-          debounce-events="keydown"
         />
         <input
           class="search-power__value"
           type="text"
-          placeholder="До"
+          placeholder="До ... кВт"
           v-model.number="itemsStore.filters.maxPower"
-          debounce-events="keydown"
         />
       </div>
 
@@ -80,7 +74,6 @@ const handleChange = () => {
           type="text"
           placeholder="Поиск..."
           v-model="itemsStore.filters.search"
-          debounce-events="keydown"
         />
       </div>
     </div>

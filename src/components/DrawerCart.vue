@@ -7,7 +7,7 @@ const props = defineProps({
 })
 
 onMounted(() => {
-  console.log(itemsStore.cart)
+  // console.log(itemsStore.cart)
 })
 </script>
 

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { onMounted } from 'vue'
 import { useItemsStore } from '@/stores/items'
 import { useAccountStore } from './stores/account'
 import Drawer from './components/Drawer.vue'

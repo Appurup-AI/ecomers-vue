@@ -38,7 +38,10 @@ onMounted(() => {
     </div>
 
     <div class="power">
-      <span>{{ item.minPower.toLocaleString('ru-RU') }} кВт - {{ item.maxPower.toLocaleString('ru-RU') }} кВт </span>
+      <span
+        >{{ item.minPower.toLocaleString('ru-RU') }} кВт -
+        {{ item.maxPower.toLocaleString('ru-RU') }} кВт
+      </span>
     </div>
 
     <div class="sneaker-footer">
@@ -134,8 +137,8 @@ onMounted(() => {
   // align-self: center;
   // justify-self: center;
   max-height: 15rem;
-    @media screen and (max-width: $screen-sm) {
-      max-height: 12rem;
+  @media screen and (max-width: $screen-sm) {
+    max-height: 12rem;
   }
 }
 

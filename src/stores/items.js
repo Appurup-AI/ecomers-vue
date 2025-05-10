@@ -23,8 +23,8 @@ export const useItemsStore = defineStore('items', () => {
         else if (control === 'two') match &&= item.control === 'двухступенчатая'
         else if (control === 'module') match &&= item.control === 'модуляционная'
 
-        if (minPower != null) match &&= item.minPower >= minPower
-        if (maxPower != null) match &&= item.maxPower <= maxPower // Исправлено < на <=
+        if (minPower != '') match &&= item.minPower >= minPower
+        if (maxPower != '') match &&= item.maxPower <= maxPower // Исправлено < на <=
 
         return match
       })
@@ -47,12 +47,12 @@ export const useItemsStore = defineStore('items', () => {
     type: '',
     control: '',
     search: '',
-    minPower: null,
-    maxPower: null,
+    minPower: '',
+    maxPower: '',
   })
   const isFiltered = computed(() => {
     const { sortBy, search, control, type, minPower, maxPower } = filters.value
-    return !!(sortBy || search || control || type || minPower !== null || maxPower !== null)
+    return !!(sortBy || search || control || type || minPower || maxPower)
   })
 
   const fetchData = async () => {
@@ -125,7 +125,6 @@ export const useItemsStore = defineStore('items', () => {
     items.value.map((item) => {
       item.isAdded = false
       item.amount = 1
-      postChangedInCart(item)
     })
   }
 

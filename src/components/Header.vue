@@ -11,7 +11,7 @@ const accountStore = useAccountStore()
       <div class="header__logo">
         <img src="/logo.avif" alt="logo" class="header__logo-img" />
         <div class="header__logo-title">
-          <h2 class="header__logo-title__primary">EDLBUN</h2>
+          <h2 class="header__logo-title__primary">EDL</h2>
           <p class="header__logo-title__secondary">Магазин промышленных горелок</p>
         </div>
       </div>
